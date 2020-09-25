@@ -1,16 +1,17 @@
 <template>
 <div>
-      <router-link to="/">На головну</router-link>
-		<router-link to="/vikonano">Виконано</router-link>
+	<Header />
     <router-view/>
 	<Footer />
 </div>
 </template>
 <script>
 import Footer from "@/components/Footer.vue";
+import Header from "@/components/Header.vue";
 export default {
 	components: {
-		Footer
+		Footer,
+		Header
 	}
 }
 </script>

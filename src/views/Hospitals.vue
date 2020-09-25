@@ -1,66 +1,72 @@
 <template>
-<body>
-  <main>
-    <section class="ba-hospitals">
-      <div class="ba-container">
-        <h1 class="ba-hospitals__title">
-          Актуальна інформація щодо
-          <br />постачання лікарень
-        </h1>
-        <h4 class="ba-hospitals__subtitle">Інформація оновлюється координаторами.</h4>
-        <div class="ba-card__container" v-if="cards">
-          <HospItem v-bind:hosp="hosp" v-for="(hosp, index) in cards" :key="index" />
+  <body>
+    <main>
+      <section class="ba-hospitals">
+        <div class="ba-container">
+          <h1 class="ba-hospitals__title">
+            Актуальна інформація щодо
+            <br />постачання лікарень
+          </h1>
+          <h4 class="ba-hospitals__subtitle">
+            Інформація оновлюється координаторами.
+          </h4>
+          <div class="ba-card__container" v-if="cards">
+            <HospItem
+              v-bind:hosp="hosp"
+              v-for="(hosp, index) in cards"
+              :key="index"
+            />
+          </div>
+          <div class="ba-container-center">
+            <button
+              v-if="page < cardsData.length"
+              class="ba-loading"
+              v-on:click="loadMore"
+            >
+              Побачити більше
+            </button>
+          </div>
         </div>
-        <div class="ba-container-center">
-          <button
-            v-if="page < cardsData.length"
-            class="ba-loading"
-            v-on:click="loadMore"
-          >Побачити більше</button>
-        </div>
-      </div>
-      <!-- /.ba-card-container -->
-
-      <!-- /.ba-container -->
-    </section>
-  </main>
-</body>
+        <!-- /.ba-card-container -->
+      </section>
+    </main>
+  </body>
 </template>
 
 <script>
 import HospItem from "@/components/HospItem.vue";
-
 export default {
   props: ["hosp"],
   components: {
-    HospItem
+    HospItem,
   },
   data() {
     return {
       cards: [],
       cardsData: [],
-      page: 20,
-      perPage: 20
+      page: 6,
+      perPage: 10,
     };
   },
   methods: {
-    loadMore() {
-      this.page += this.perPage;
-      this.showItem();
-    },
     showItem() {
       this.cards = this.cardsData.slice(0, this.page);
-    }
+      console.log("more");
+    },
+    loadMore() {
+		this.page += this.perPage;
+      this.showItem();
+      // console.log("cards");
+    },
   },
   created() {
-    fetch(`https://razomua.flywheelstaging.com/wp-json/hospitals/v1/post`)
-      .then(result => result.json())
-      .then(data => {
-        console.log(data);
+    fetch("data/hospitals.json")
+      .then((result) => result.json())
+      .then((data) => {
         this.cardsData = data;
         this.showItem();
       });
-  }
+  },
 };
 </script>
 <style lang="scss">
