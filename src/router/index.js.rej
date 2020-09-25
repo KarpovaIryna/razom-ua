@@ -1,0 +1,3 @@
+diff a/src/router/index.js b/src/router/index.js	(rejected hunks)
+@@ -25 +24,0 @@ const router = new VueRouter({
+-set -e
