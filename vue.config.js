@@ -1,4 +1,6 @@
 module.exports = {
 	lintOnSave: false,
-	publicPath: process.env.NODE_ENV === 'production' ? '/razom-ua/' : '/',
+	publicPath: process.env.NODE_ENV === 'production' 
+	? '/razom-ua/' 
+	: '/'
 }
